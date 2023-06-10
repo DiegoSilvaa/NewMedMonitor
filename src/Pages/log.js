@@ -39,14 +39,14 @@ const Log = ({ navigation }) => {
   return (
     <ImageBackground source={background} style={{flex: 1,  resizeMode: 'cover'}}>
     <View style={styles.container}>
-      <Image source={require('../assets/log.png')} style={styles.logo} />
+      <Image source={require('../assets/logo.png')} style={styles.logo} />
       <Button
         mode="contained"
         style={styles.button}
         onPress={handleLogin}
         labelStyle={{fontSize: 20, color: 'white'}}
       >
-        Login
+        Entrar
       </Button>
       <Button
         mode="contained"
@@ -54,7 +54,7 @@ const Log = ({ navigation }) => {
         onPress={handleSignup}
         labelStyle={{fontSize: 20, color: 'white'}}
       >
-        SignUp
+        Registrarse
       </Button>
     </View>
     </ImageBackground>

@@ -128,7 +128,7 @@ export default function SignUp({navigation}) {
                 </View>
                 <View style={{width: '100%', alignItems: 'center', height: '30%'}}>
                 <Button style={styles.botones} 
-                    labelStyle={{ fontSize: 40, paddingVertical: 20, marginTop: 20 }} 
+                    labelStyle={{ fontSize: 40, paddingTop: 19,  width: '100%' }} 
                     textColor='white'
                     onPress={handleSignUp}
                     > Seguir </Button>               

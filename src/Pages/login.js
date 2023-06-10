@@ -107,7 +107,7 @@ export default function LogIn({navigation}) {
                 </View>
                 <View style={{ width: '100%', alignItems: 'center', display: 'flex', justifyContent: 'center'}}>
                 <Button style={styles.botones} 
-                    labelStyle={{ fontSize: 35, paddingVertical: 15, marginTop: 20 }} 
+                    labelStyle={{ fontSize: 40, paddingTop: 19,  width: '100%' }} 
                     textColor='white'
                     onPress={() => navigation.navigate('Home')}> Entrar </Button>               
                 </View>
