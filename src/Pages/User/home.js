@@ -101,97 +101,105 @@ export default function Home({ navigation }) {
     };
 
 
-  const handleChartScroll = (event) => {
-    const contentOffsetX = event.nativeEvent.contentOffset.x;
-    const activeIndex = Math.round(contentOffsetX / Dimensions.get('window').width);
-    setActiveChartIndex(activeIndex);
-  };
+    const handleChartScroll = (event) => {
+      const contentOffsetX = event.nativeEvent.contentOffset.x;
+      const activeIndex = Math.round(contentOffsetX / Dimensions.get('window').width);
+      setActiveChartIndex(activeIndex);
+    };
 
   return (
     <ImageBackground source={background} style={{flex: 1,  resizeMode: 'cover'}}>
     <View style={styles.mainContainer}>
       <View style={styles.scrollView}>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          pagingEnabled
-          onScroll={handleChartScroll}
-        >
-        {symptoms.map((symptom, index) => (
-          <View style={styles.chartContainer} key={symptom.id}>
-          <>
-            <Text style={styles.header}>{symptom.name}</Text>
-            {Array.isArray(symptom.intensidad) && symptom.intensidad.length > 1 ? (
-
-                <LineChart
-                data={{
-                    labels: symptom.intensidad.map((_,i) => String(i)),
-                    datasets: [
-                    {
-                        data: 
-                            symptom.intensidad.map((i) => String(i))
-                        ,
-                    },
-                    ],
-                }}
-                width={Dimensions.get('window').width - 100}
-                height={220}
-                chartConfig={{
-                    backgroundColor: '#1cc910',
-                    backgroundGradientFrom: '#eff3ff',
-                    backgroundGradientTo: '#efefef',
-                    decimalPlaces: 2,
-                    color: (opacity = 255) => `rgba(0, 0, 0, ${opacity})`,
-                    style: {
-                    borderRadius: 16,
-                    },
-                }}
-                bezier
-                style={{
-                    marginVertical: 8,
-                    borderRadius: 16,
-                }}
-                />
+      <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      pagingEnabled
+      onScroll={handleChartScroll}
+      >
+      {symptoms.map((symptom, index) => {
+         if (symptom.terminarSintoma === false) {
+          return (
+            <View style={styles.chartContainer} key={symptom.id}>
+              <>
+                <Text style={styles.header}>{symptom.name}</Text>
+                {Array.isArray(symptom.intensidad) && symptom.intensidad.length > 1 ? (
+                  <LineChart
+                    data={{
+                      labels: symptom.intensidad.map((_, i) => String(i)),
+                      datasets: [
+                        {
+                          data: symptom.intensidad.map((i) => String(i)),
+                        },
+                      ],
+                    }}
+                    width={Dimensions.get('window').width - 100}
+                    height={220}
+                    chartConfig={{
+                      backgroundColor: '#1cc910',
+                      backgroundGradientFrom: '#eff3ff',
+                      backgroundGradientTo: '#efefef',
+                      decimalPlaces: 2,
+                      color: (opacity = 255) => `rgba(0, 0, 0, ${opacity})`,
+                      style: {
+                        borderRadius: 16,
+                      },
+                    }}
+                    bezier
+                    style={{
+                      marginVertical: 8,
+                      borderRadius: 16,
+                    }}
+                  />
                 ) : (
-                    <Text>No hay datos disponibles</Text>
+                  <Text>No hay datos disponibles</Text>
                 )}
                 <Divider style={styles.customDivider} />
                 <View style={styles.midChartContainer}>
-                <Image
+                  <Image
                     source={require('../../assets/health-and-care.png')}
                     style={styles.logo}
-                />
-                <View style={{ flexDirection: 'column' }}>
+                  />
+                  <View style={{ flexDirection: 'column' }}>
                     <Text style={styles.text}>Promedio nivel de Sintoma:</Text>
                     <Text> Promedio </Text>
-                </View>
+                  </View>
                 </View>
                 <Divider style={styles.customDivider} />
                 <View style={styles.downChartContainer}>
-                <View style={{ flexDirection: 'column' }}>
+                  <View style={{ flexDirection: 'column' }}>
                     <Text style={styles.text}>Mas Alto:</Text>
                     <Text> Dia y Nivel </Text>
-                </View>
-                <View style={{ flexDirection: 'column' }}>
+                  </View>
+                  <View style={{ flexDirection: 'column' }}>
                     <Text style={styles.text}>Mas Bajo:</Text>
                     <Text> Dia y Nivel </Text>
+                  </View>
                 </View>
-                </View>
-            </>
-          </View>
-        ))}
-        </ScrollView>
+              </>
+            </View>
+          );
+        } else {
+          return null; // O puedes reemplazarlo con otro componente o vista según tus necesidades
+        }
+      })}
+      </ScrollView>
       </View>
       <View style={styles.indicatorContainer}>
-        {[...Array(symptoms.length)].map((_, index) => (
-          <View
-            key={index}
-            style={[
-              styles.indicator,
-              index === activeChartIndex && { backgroundColor: theme.colors.quinto }, // Cambia el color del indicador activo
-            ]}
-          />
-        ))}
+        {symptoms.map((symptom, index) => {
+          if (symptom.terminarSintoma === false) {
+            return (
+              <View
+                key={index}
+                style={[
+                  styles.indicator,
+                  index === activeChartIndex && { backgroundColor: theme.colors.quinto }, // Cambia el color del indicador activo
+                ]}
+              />
+            )}else {
+              return null; // O puedes reemplazarlo con otro componente o vista según tus necesidades
+            }
+        })}
       </View>
     </View>
     </ImageBackground>

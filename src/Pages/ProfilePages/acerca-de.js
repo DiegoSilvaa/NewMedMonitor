@@ -8,24 +8,24 @@ const SobreNosotros = () => {
     <ImageBackground source={background} style={{flex: 1,  resizeMode: 'cover'}}>
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>ACME Corp.</Text>
+        <Text style={styles.title}>Med Monitor S.A</Text>
       </View>
       <View style={styles.info}>
         <View style={styles.row}>
           <Text style={styles.label}>Phone:</Text>
-          <Text style={styles.text}>(123) 456-7890</Text>
+          <Text style={styles.text}>(+52) 8112813043</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>Email:</Text>
-          <Text style={styles.text}>info@acmecorp.com</Text>
+          <Text style={styles.text}>diegosilva11042002@gmail.com</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>Website:</Text>
-          <Text style={styles.text}>www.acmecorp.com</Text>
+          <Text style={styles.text}>https://med-monitor-api.herokuapp.com/</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>Address:</Text>
-          <Text style={styles.text}>123 Main St, Anytown USA</Text>
+          <Text style={styles.text}>Priv. Bocanegra 602</Text>
         </View>
       </View>
     </View>
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     color: '#2c3e50',
   },
   text: {
-    fontSize: 20,
+    fontSize: 15,
     marginLeft: 10,
   },
 });

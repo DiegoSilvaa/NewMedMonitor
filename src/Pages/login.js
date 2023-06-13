@@ -63,6 +63,10 @@ export default function LogIn({navigation}) {
       Keyboard.dismiss();
     };
 
+    const Login = () => {
+        navigation.navigate('Home')
+    }
+
     return (
         <ImageBackground source={background} style={{flex: 1,  resizeMode: 'cover'}}>
         <KeyboardAvoidingView 
@@ -109,7 +113,7 @@ export default function LogIn({navigation}) {
                 <Button style={styles.botones} 
                     labelStyle={{ fontSize: 40, paddingTop: 19,  width: '100%' }} 
                     textColor='white'
-                    onPress={() => navigation.navigate('Home')}> Entrar </Button>               
+                    onPress={() => Login()}> Entrar </Button>               
                 </View>
             </View>
             </TouchableOpacity>

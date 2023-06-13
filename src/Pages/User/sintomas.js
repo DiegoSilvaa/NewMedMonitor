@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { StyleSheet, View, Text, FlatList, Alert } from 'react-native';
 import { useTheme, Button } from 'react-native-paper';
 import background from '../../assets/back.png';
 import { ImageBackground } from 'react-native';
@@ -111,8 +111,8 @@ export default function Sintomas({navigation}) {
         fetch(url, requestOptions)
         .then((response) => {
             if (response.ok) {
-            console.log('El elemento se eliminó exitosamente');
-            fetchData();
+                Alert('El elemento se eliminó exitosamente');
+                fetchData();
             } else {
             console.error('Error al eliminar el elemento:', response.status);
             }
@@ -122,12 +122,49 @@ export default function Sintomas({navigation}) {
         });
     };
 
+
+    const desactivarSintoma = (id,id_paciente,nombre,estado) => {
+        const url = 'https://med-monitor-api.herokuapp.com/api/v1/sintomas/endSintom';
+        const data = {
+          id: id,
+          terminarSintoma: !estado,
+          pacienteId: id_paciente
+        };
+        console.log(data)
+        
+        fetch(url, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+          .then(response => response.json())
+          .then(responseData => {
+            // Manejar la respuesta exitosa
+            console.log(responseData);
+            Alert.alert(
+                'Sintoma Desactivado',
+                `Nombre del síntoma: ${nombre}`,
+                [
+                  { text: 'OK', onPress: () => console.log('Alerta cerrada') }
+                ]
+            );
+            //fetchData();
+          })
+          .catch(error => {
+            // Manejar el error
+            console.error(error);
+          });
+        
+    };
+
     return (
         <ImageBackground source={background} style={{flex: 1,  resizeMode: 'cover'}}>
         <View style={styles.mainContainer}>
             <View style={styles.containerAnadir}>
             <Button style={styles.botones} 
-                    labelStyle={{ fontSize: 20, width: '100%',  }} 
+                    labelStyle={{ fontSize: 20, width: '100%'}} 
                     textColor='white'
                     onPress={addSymptom}> Añadir Sintoma </Button>
             </View>
@@ -148,7 +185,9 @@ export default function Sintomas({navigation}) {
                             <Button style={styles.botonesCard} 
                             labelStyle={{ fontSize: 12, width: '100%'}} 
                             textColor='white'
-                            > Desactivar </Button>
+                            onPress={() => desactivarSintoma(item.id, 1,item.name,item.terminarSintoma)}
+                            >{item.terminarSintoma ? 'Activar' : 'Desactivar'}
+                            </Button>
                         </View>
                     </View>
                     )}

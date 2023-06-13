@@ -92,17 +92,44 @@ const NewSintoma = ({ navigation }) => {
     console.log('Intensidad del síntoma:', intensidadSintoma);
     console.log('Notas del síntoma:', notasSintoma);
 
-    // Ejemplo de alerta para mostrar los datos ingresados
-    Alert.alert(
-      'Nuevo Síntoma',
-      `Nombre del síntoma: ${nombreSintoma}\nIntensidad: ${intensidadSintoma}\nNotas: ${notasSintoma}`,
-      [
-        { text: 'OK', onPress: () => console.log('Alerta cerrada') }
-      ]
-    );
+    // Metodo Post de Sintoma
+    const url = 'https://med-monitor-api.herokuapp.com/api/v1/sintomas/';
 
-    // También puedes navegar a otra pantalla después de crear el síntoma
-    // navigation.navigate('OtraPantalla');
+    const data = {
+      name: nombreSintoma,
+      intensidad: [intensidadSintoma],
+      recordar: true,
+      terminarSintoma: false,
+      notas: [notasSintoma],
+      pacienteId: 1
+    };
+    
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => response.json())
+      .then(responseData => {
+        // Manejar la respuesta exitosa
+        console.log(responseData);
+        Alert.alert(
+          'Nuevo Síntoma',
+          `Nombre del síntoma: ${nombreSintoma}\nIntensidad: ${intensidadSintoma}\nNotas: ${notasSintoma}`,
+          [
+            { text: 'OK', onPress: () => console.log('Alerta cerrada') }
+          ]
+        );
+        setIntensidadSintoma(0);
+        setNombreSintoma('');
+        setNotasSintoma('');
+      })
+      .catch(error => {
+        // Manejar el error
+        console.error(error);
+      });
   };
 
   return (
